@@ -16,7 +16,9 @@ export class UsersService {
 
   updateUser(id: string) {}
 
-  getUsers() {}
+  getUsers() {
+    return this.http.get(this.endPoint);
+  }
 
   getUserById() {}
 

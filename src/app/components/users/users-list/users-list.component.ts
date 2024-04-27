@@ -1,26 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UsersService } from 'src/app/services/users.service';
 
 export interface UsersTable {
   registrationId: string;
   firstName: string;
   lastName: string;
   role: string;
+  course: string;
 }
-
-const ELEMENT_DATA: UsersTable[] = [
-  {registrationId: 'HS783MS', firstName: 'Nimisha', lastName: 'Wilson', role: 'Admin'},
-  {registrationId: 'NSKD97K', firstName: 'Thomas', lastName: 'S', role: 'Student'},
-  {registrationId: 'HSISGDF', firstName: 'Roy', lastName: 'P', role: 'Student'},
-
-];
 
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.scss']
 })
-export class UsersListComponent {
-  displayedColumns: string[] = ['registrationId', 'firstName', 'lastName', 'role'];
-  dataSource = ELEMENT_DATA;
+export class UsersListComponent implements OnInit {
+  displayedColumns: string[] = ['registrationId', 'firstName', 'lastName', 'role', 'course'];
+  dataSource: UsersTable[] = [];
+
+  constructor(private usersService: UsersService) {}
+
+  ngOnInit(): void {
+    this.usersService.getUsers().subscribe((data: any) => {
+      this.dataSource = data.map((item: any) => ({
+        registrationId: item.registrationNo,
+        firstName: item.firstName,
+        lastName: item.lastName,
+        course: item.course,
+        role: item.role
+      }))
+    })
+  }
 
 }
