@@ -1,0 +1,49 @@
+<div class="user-container">
+    <mat-card class="user-card">
+        <mat-card-content>
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div>
+                <mat-form-field>
+                    <mat-label>Registration id</mat-label>
+                    <input matInput formControlName="regId">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field>
+                    <mat-label>First name</mat-label>
+                    <input matInput formControlName="firstName">
+                </mat-form-field>
+            </div>
+
+
+            <div>
+                <mat-form-field>
+                    <mat-label>Last name</mat-label>
+                    <input matInput formControlName="lastName">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-button-toggle-group formControlName="role">
+                    <mat-button-toggle *ngFor="let role of roles | keyvalue" [value]="role.value"> {{ role.value }} </mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+
+            <div>
+                <mat-form-field>
+                    <mat-label>Course</mat-label>
+                    <mat-select formControlName="course">
+                        <mat-option *ngFor="let course of courses | keyvalue" [value]="course.value"> {{ course.value }} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="button-container">
+                <button mat-flat-button>Cancel</button>
+                <button mat-flat-button color="primary" type="submit">Save</button>
+            </div>
+        </form>
+        </mat-card-content>
+    </mat-card>
+</div>
