@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Courses } from 'src/app/models/course';
 import { Roles } from 'src/app/models/roles';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-add-user',
@@ -13,7 +14,7 @@ export class AddUserComponent implements OnInit {
   roles = Roles;
   userForm: any;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private usersService: UsersService) {}
 
   ngOnInit(): void {
 
@@ -27,7 +28,15 @@ export class AddUserComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.userForm)
+    this.usersService.createUser(
+      {
+        registrationNo: this.userForm.value.regId,
+        firstName: this.userForm.value.firstName,
+        lastName: this.userForm.value.lastName,
+        course: this.userForm.value.course,
+        role: this.userForm.value.role,
+      }
+    ).subscribe();
   }
 
 
