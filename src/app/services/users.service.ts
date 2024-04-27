@@ -22,6 +22,8 @@ export class UsersService {
 
   getUserById() {}
 
-  deleteUser(id: string) {}
+  deleteUser(id: number) {
+    return this.http.delete(`${this.endPoint}${id}`);
+  }
   
 }

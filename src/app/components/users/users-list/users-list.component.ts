@@ -15,7 +15,7 @@ export interface UsersTable {
   styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
-  displayedColumns: string[] = ['registrationId', 'firstName', 'lastName', 'role', 'course'];
+  displayedColumns: string[] = ['registrationId', 'firstName', 'lastName', 'role', 'course', 'delete'];
   dataSource: UsersTable[] = [];
 
   constructor(private usersService: UsersService) {}
@@ -23,6 +23,7 @@ export class UsersListComponent implements OnInit {
   ngOnInit(): void {
     this.usersService.getUsers().subscribe((data: any) => {
       this.dataSource = data.map((item: any) => ({
+        id: item.id,
         registrationId: item.registrationNo,
         firstName: item.firstName,
         lastName: item.lastName,
@@ -30,6 +31,10 @@ export class UsersListComponent implements OnInit {
         role: item.role
       }))
     })
+  }
+
+  deleteUser(userId: number) {
+    this.usersService.deleteUser(userId).subscribe();
   }
 
 }
