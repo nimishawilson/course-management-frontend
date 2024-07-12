@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
 import { UsersService } from 'src/app/services/users.service';
 
 export interface UsersTable {
@@ -15,10 +16,10 @@ export interface UsersTable {
   styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
-  displayedColumns: string[] = ['registrationId', 'firstName', 'lastName', 'role', 'course', 'delete'];
+  displayedColumns: string[] = ['registrationId', 'firstName', 'lastName', 'role', 'course', 'edit', 'delete'];
   dataSource: UsersTable[] = [];
 
-  constructor(private usersService: UsersService) {}
+  constructor(private usersService: UsersService, private router: Router) {}
 
   ngOnInit(): void {
     this.usersService.getUsers().subscribe((data: any) => {
@@ -31,6 +32,18 @@ export class UsersListComponent implements OnInit {
         role: item.role
       }))
     })
+  }
+
+  editUser(userId: number) {
+
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          "data"   : encodeURIComponent(userId),
+      }
+  };
+  
+  this.router.navigate(["add-user"], navigationExtras);
+  
   }
 
   deleteUser(userId: number) {

@@ -14,13 +14,17 @@ export class UsersService {
     return this.http.post(this.endPoint, userDetails);
   }
 
-  updateUser(id: string) {}
+  updateUser(id: string, userDetails: User) {
+    return this.http.put(`${this.endPoint}${id}`, userDetails);
+  }
 
   getUsers() {
     return this.http.get(this.endPoint);
   }
 
-  getUserById() {}
+  getUserById(userId: string) {
+    return this.http.get(`${this.endPoint}${userId}`);
+  }
 
   deleteUser(id: number) {
     return this.http.delete(`${this.endPoint}${id}`);
