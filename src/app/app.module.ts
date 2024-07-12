@@ -15,27 +15,20 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
-@NgModule({
-  declarations: [AppComponent, UsersListComponent, AddUserComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatSlideToggleModule,
-    MatTableModule,
-    MatCardModule,
-    MatButtonToggleModule,
-    MatInputModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatIconModule,
-    HttpClientModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [AppComponent, UsersListComponent, AddUserComponent],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatSlideToggleModule,
+        MatTableModule,
+        MatCardModule,
+        MatButtonToggleModule,
+        MatInputModule,
+        MatSelectModule,
+        MatButtonModule,
+        MatIconModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule {}
